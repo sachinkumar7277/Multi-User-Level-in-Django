@@ -1,0 +1,70 @@
+<h1>Welcome {{user.username}}</h1>
+{% if user.is_teacher %}
+<h1>You Are Logged in As     Teacher</h1>
+
+<div class="container">
+<table>
+  <tr>
+
+    <th>Name             </th>
+
+    <th>Department             </th>
+
+    <th>Phone Number               </th>
+
+  </tr>
+  {% for i in dataval %}
+  <tr>
+    <td>{{user.username}}          </td>
+    <td>{{i.Department}}             </td>
+    <td>{{i.phone_number}}          </td>
+  </tr>
+  {% endfor %}
+</table>
+</div><br><br><br><br><br><br><br><br>
+
+{% else %}
+    {% if user.is_student %}
+    <h1>You Are Logged in As     Student</h1>
+    <div class="container">
+    <table>
+      <tr>
+
+        <th>Name     </th>
+
+        <th>Branch    </th>
+
+        <th>Location   </th>
+
+        <th>Phone Number  </th>
+
+      </tr>
+      {% for i in dataval %}
+      <tr>
+        <td>{{user.username}}  </td>
+        <td>{{i.Branch}}  </td>
+        <td>{{i.location}}  </td>
+        <td>{{i.phone_number}}  </td>
+      </tr>
+      {% endfor %}
+    </table>
+    </div><br><br><br><br><br><br>
+
+
+  {% endif %}
+  {% if user.is_superuser %}
+  <h1>You Are Logged in As     Superuser</h1>
+  <button><a href="http://127.0.0.1:8000/admin/">Visit Admin site</a></button><br><br><br><br>
+  {% endif %}
+
+{% endif %}
+
+{% if user.is_authenticated %}
+<button style="float:left" > <a href="{% url 'logout' %}" >Logout</a></button> <br><br><br>
+ {% if user.is_teacher %}
+  <a href="http://127.0.0.1:8000/admin/group/student/add/">Add Student</a>
+ {% endif %}
+{% else %}
+<a href="{% url 'register' %}">Register</a> <br>
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
